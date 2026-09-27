@@ -2,7 +2,7 @@ import React from "react";
 import { cn } from "@/lib/utils";
 
 interface LogoProps {
-  variant?: "dark" | "light" | "auto";
+  variant?: "dark" | "light" | "auto" | "white";
   iconOnly?: boolean;
   size?: "sm" | "md" | "lg" | "xl";
   className?: string;

@@ -1,11 +1,22 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface CardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
   elevated?: boolean;
+  title?: React.ReactNode;
+  subtitle?: React.ReactNode;
+  headerAction?: React.ReactNode;
 }
 
-export function Card({ className, elevated = false, ...props }: CardProps) {
+export function Card({
+  className,
+  elevated = false,
+  title,
+  subtitle,
+  headerAction,
+  children,
+  ...props
+}: CardProps) {
   return (
     <div
       className={cn(
@@ -14,7 +25,22 @@ export function Card({ className, elevated = false, ...props }: CardProps) {
         className
       )}
       {...props}
-    />
+    >
+      {title || subtitle || headerAction ? (
+        <div className="flex flex-col">
+          <div className="flex items-start justify-between p-5 pb-3 border-b border-slate-100">
+            <div>
+              {title && (typeof title === "string" ? <CardTitle>{title}</CardTitle> : title)}
+              {subtitle && (typeof subtitle === "string" ? <CardDescription className="mt-1">{subtitle}</CardDescription> : subtitle)}
+            </div>
+            {headerAction && <div>{headerAction}</div>}
+          </div>
+          <div className="p-5">{children}</div>
+        </div>
+      ) : (
+        children
+      )}
+    </div>
   );
 }
 

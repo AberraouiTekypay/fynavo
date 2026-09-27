@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Logo } from "@/components/brand/Logo";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
-import { ArrowRight, Sparkles, Shield, Database, Layout } from "lucide-react";
+import { ArrowRight, Sparkles, Shield, Database, Layout, Building2 } from "lucide-react";
 
 export default function Home() {
   return (
@@ -12,9 +12,14 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <Logo size="md" />
           <div className="flex items-center gap-3">
+            <Link href="/group">
+              <Button variant="primary" size="sm" leftIcon={<Building2 className="w-3.5 h-3.5" />}>
+                Cockpit Multi-Entités
+              </Button>
+            </Link>
             <Link href="/design-system">
               <Button variant="secondary" size="sm" leftIcon={<Sparkles className="w-3.5 h-3.5 text-blue-600" />}>
-                Explorer le Design System
+                Design System
               </Button>
             </Link>
           </div>
@@ -28,22 +33,27 @@ export default function Home() {
             Fynavo FinanceOS
           </Badge>
           <Badge variant="green" size="lg" dot>
-            Sprint 1 Fondations Validé
+            Sprint Multi-Entités Actif
           </Badge>
         </div>
 
         <h1 className="text-4xl sm:text-5xl font-extrabold text-[#0F172A] tracking-tight leading-tight max-w-2xl">
-          Le cockpit financier intelligent des entreprises en croissance.
+          Le cockpit financier intelligent des groupes et holdings.
         </h1>
 
         <p className="mt-4 text-base sm:text-lg text-slate-600 max-w-xl">
-          Centralisez vos flux comptables, anticipez votre trésorerie à 13 semaines et pilotez vos décisions financières avec une précision institutionnelle.
+          Pilotez vos filiales, SPVs et actifs en temps réel : consolidation de gestion, réconciliation intercompany, trésorerie mobilisable et prévisions 13 semaines.
         </p>
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-          <Link href="/design-system">
+          <Link href="/group">
             <Button variant="primary" size="lg" rightIcon={<ArrowRight className="w-4 h-4" />}>
-              Accéder au Design System (/design-system)
+              Accéder à la Vue Groupe (/group)
+            </Button>
+          </Link>
+          <Link href="/group/structure">
+            <Button variant="secondary" size="lg">
+              Arborescence du Groupe
             </Button>
           </Link>
         </div>

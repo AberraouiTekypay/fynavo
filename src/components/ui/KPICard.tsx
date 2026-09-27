@@ -1,17 +1,19 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { ArrowUpRight, ArrowDownRight, Minus, HelpCircle } from "lucide-react";
-import { Badge } from "./Badge";
+import { Badge, type BadgeProps } from "./Badge";
 
 export interface KPICardProps {
   title: string;
   value: string | number;
   subtitle?: string;
+  description?: string;
   change?: number; // e.g. +12.4 or -3.2 %
   changeLabel?: string; // e.g. "vs mois précédent", "vs budget"
   changeInverted?: boolean; // if positive change is bad (e.g. DSO, overdue AR, expenses)
   status?: "positive" | "negative" | "warning" | "neutral";
   badge?: string;
+  badgeVariant?: BadgeProps["variant"];
   icon?: React.ReactNode;
   tooltip?: string;
   className?: string;
@@ -22,11 +24,13 @@ export function KPICard({
   title,
   value,
   subtitle,
+  description,
   change,
   changeLabel,
   changeInverted = false,
   status,
   badge,
+  badgeVariant = "blue",
   icon,
   tooltip,
   className,
@@ -35,6 +39,7 @@ export function KPICard({
   // Determine trend color
   const isPositiveChange = change !== undefined ? (changeInverted ? change < 0 : change > 0) : null;
   const isNegativeChange = change !== undefined ? (changeInverted ? change > 0 : change < 0) : null;
+  const displaySubtitle = description || subtitle;
 
   return (
     <div
@@ -60,15 +65,18 @@ export function KPICard({
             </span>
           )}
         </div>
-        {badge ? (
-          <Badge variant="blue" size="sm">
-            {badge}
-          </Badge>
-        ) : icon ? (
-          <div className="p-1.5 rounded-lg bg-slate-50 text-slate-500 border border-slate-100 group-hover:text-slate-800 transition-colors">
-            {icon}
-          </div>
-        ) : null}
+        <div className="flex items-center gap-2">
+          {badge && (
+            <Badge variant={badgeVariant} size="sm">
+              {badge}
+            </Badge>
+          )}
+          {icon && (
+            <div className="p-1.5 rounded-lg bg-slate-50 text-slate-500 border border-slate-100 group-hover:text-slate-800 transition-colors">
+              {icon}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Main KPI Value */}
@@ -79,7 +87,7 @@ export function KPICard({
       </div>
 
       {/* Card Footer: Trend + Subtitle */}
-      {(change !== undefined || subtitle) && (
+      {(change !== undefined || displaySubtitle) && (
         <div className="flex items-center flex-wrap gap-2 text-xs text-slate-500 mt-2 pt-2 border-t border-slate-100">
           {change !== undefined && (
             <span
@@ -101,7 +109,7 @@ export function KPICard({
             </span>
           )}
           {changeLabel && <span className="text-slate-400">{changeLabel}</span>}
-          {subtitle && !changeLabel && <span className="text-slate-500">{subtitle}</span>}
+          {displaySubtitle && !changeLabel && <span className="text-slate-500">{displaySubtitle}</span>}
         </div>
       )}
     </div>

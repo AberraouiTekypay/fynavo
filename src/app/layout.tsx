@@ -17,6 +17,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { GroupProvider } from "@/lib/group/GroupContext";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -25,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="fr" className={inter.variable}>
       <body className="min-h-screen font-sans bg-[#F8FAFC] text-[#0F172A] antialiased selection:bg-blue-100 selection:text-blue-900">
-        {children}
+        <GroupProvider>{children}</GroupProvider>
       </body>
     </html>
   );

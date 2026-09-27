@@ -10,6 +10,7 @@ export interface ModalProps {
   children: React.ReactNode;
   footer?: React.ReactNode;
   maxWidth?: "sm" | "md" | "lg" | "xl" | "2xl";
+  size?: "sm" | "md" | "lg" | "xl" | "2xl";
 }
 
 export function Modal({
@@ -19,7 +20,8 @@ export function Modal({
   description,
   children,
   footer,
-  maxWidth = "md",
+  maxWidth,
+  size = "md",
 }: ModalProps) {
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -39,13 +41,14 @@ export function Modal({
 
   if (!isOpen) return null;
 
+  const effectiveWidth = maxWidth || size;
   const maxWidthClass = {
     sm: "max-w-sm",
     md: "max-w-md",
     lg: "max-w-lg",
     xl: "max-w-xl",
     "2xl": "max-w-2xl",
-  }[maxWidth];
+  }[effectiveWidth];
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
