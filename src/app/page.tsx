@@ -10,7 +10,21 @@ export default function Home() {
       {/* Top Navbar */}
       <header className="border-b border-slate-200 bg-white/80 backdrop-blur-md sticky top-0 z-20">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Logo size="md" />
+          <div className="flex items-center gap-3">
+            <Logo size="md" />
+            <span className="hidden sm:inline-flex items-center text-xs text-slate-500 font-medium pl-3 border-l border-slate-200">
+              An&nbsp;
+              <a
+                href="https://em300.co"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-slate-800 hover:text-blue-600 hover:underline transition-colors"
+              >
+                EM300.co
+              </a>
+              &nbsp;Company
+            </span>
+          </div>
           <div className="flex items-center gap-3">
             <Link href="/group">
               <Button variant="primary" size="sm" leftIcon={<Building2 className="w-3.5 h-3.5" />}>
@@ -28,7 +42,19 @@ export default function Home() {
 
       {/* Main Content */}
       <main className="max-w-4xl mx-auto px-6 py-16 flex-1 flex flex-col items-center justify-center text-center">
-        <div className="inline-flex items-center gap-2 mb-6">
+        <div className="inline-flex items-center gap-2 mb-6 flex-wrap justify-center">
+          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200 shadow-xs">
+            An{" "}
+            <a
+              href="https://em300.co"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold text-blue-600 hover:text-blue-700 hover:underline"
+            >
+              EM300.co
+            </a>{" "}
+            Company
+          </span>
           <Badge variant="navy" size="lg">
             Fynavo FinanceOS
           </Badge>
@@ -96,14 +122,18 @@ export default function Home() {
       <footer className="border-t border-slate-200 bg-white py-6">
         <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2">
           <span>© 2026 Fynavo. Tous droits réservés.</span>
-          <a
-            href="https://em300.co"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-medium text-slate-700 hover:text-blue-600 transition-colors"
-          >
-            An EM300.co Company
-          </a>
+          <span className="text-slate-600">
+            An{" "}
+            <a
+              href="https://em300.co"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-slate-900 hover:text-blue-600 hover:underline transition-colors"
+            >
+              em300.co
+            </a>{" "}
+            Company
+          </span>
         </div>
       </footer>
     </div>
