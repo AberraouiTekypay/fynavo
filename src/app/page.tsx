@@ -8,7 +8,6 @@ import { Badge } from "@/components/ui/Badge";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import {
   ArrowRight,
-  Sparkles,
   Layout,
   Building2,
   Wallet,
@@ -33,18 +32,6 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Logo size="md" variant="dark-bg" />
-            <span className="hidden sm:inline-flex items-center text-xs text-slate-400 font-medium pl-3 border-l border-white/10">
-              An&nbsp;
-              <a
-                href="https://em300.co"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold text-white hover:text-blue-400 transition-colors"
-              >
-                EM300.co
-              </a>
-              &nbsp;Company
-            </span>
           </div>
 
           <div className="flex items-center gap-3">
@@ -80,17 +67,6 @@ export default function Home() {
                 className="shadow-md shadow-blue-600/30"
               >
                 {t.home.ctaCockpit}
-              </Button>
-            </Link>
-
-            <Link href="/design-system" className="hidden sm:inline-flex">
-              <Button
-                variant="outline"
-                size="sm"
-                leftIcon={<Sparkles className="w-3.5 h-3.5 text-blue-400" />}
-                className="border-white/10 text-slate-300 hover:text-white hover:bg-white/5"
-              >
-                {locale === "en" ? "Design System" : "Design System"}
               </Button>
             </Link>
           </div>

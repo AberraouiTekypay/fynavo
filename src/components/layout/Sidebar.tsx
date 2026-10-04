@@ -19,7 +19,6 @@ import {
   ShieldAlert,
   FileSpreadsheet,
   Split,
-  Sparkles,
   ChevronDown,
   Building2,
   Layers,
@@ -77,12 +76,6 @@ export function Sidebar({ className }: SidebarProps) {
         { name: t.nav.healthAudit, href: "/group/health", icon: ShieldAlert },
         { name: t.nav.consolidatedReports, href: "/group/reports", icon: FileSpreadsheet, badge: t.nav.proBadge },
         { name: t.nav.allocationsFees, href: "/group/allocations", icon: Split },
-      ],
-    },
-    {
-      group: t.nav.systemFoundations,
-      items: [
-        { name: t.nav.designSystem, href: "/design-system", icon: Sparkles },
       ],
     },
   ];

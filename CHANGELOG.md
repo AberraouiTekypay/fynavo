@@ -30,6 +30,8 @@ Toutes les modifications notables apportées à la plateforme Fynavo sont consig
   - Extension de la palette dans [`tailwind.config.ts`](file:///C:/fynavo/tailwind.config.ts) (`fynavo.dark`, `fynavo.surface`, `fynavo.elevated`, ombres `card-hover` et `glow-*`).
   - Refonte du Header ([`src/components/layout/Header.tsx`](file:///C:/fynavo/src/components/layout/Header.tsx)) et de la Sidebar ([`src/components/layout/Sidebar.tsx`](file:///C:/fynavo/src/components/layout/Sidebar.tsx)) pour intégrer le sélecteur bilingue, l'indicateur d'environnement et les badges dynamiques.
   - Page d'accueil ([`src/app/page.tsx`](file:///C:/fynavo/src/app/page.tsx)) enrichie avec sélecteur de langue, dégradés d'ambiance et call-to-actions bilingues.
+  - Déplacement de la mention « An EM300.co Company » exclusivement dans le footer (retrait du header).
+  - Nettoyage des menus : retrait de l'entrée « Design System » de la sidebar, du header et de la Command Palette pour privilégier l'expérience métier financière.
 
 ### 🏛️ Traduction & Optimisation des 13 Modules de Pilotage Groupe
 Mise à jour intégrale des interfaces pour exploiter le contexte de langue et le formatage unifié :

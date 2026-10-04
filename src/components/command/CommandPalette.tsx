@@ -21,7 +21,6 @@ import {
   FileSpreadsheet,
   Split,
   Building2,
-  Sparkles,
   ArrowUpRight,
   X,
   Languages,
@@ -79,7 +78,6 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
     { title: t.nav.healthAudit, href: "/group/health", icon: ShieldAlert, category: t.command.modulesSection },
     { title: t.nav.consolidatedReports, href: "/group/reports", icon: FileSpreadsheet, category: t.command.modulesSection },
     { title: t.nav.allocationsFees, href: "/group/allocations", icon: Split, category: t.command.modulesSection },
-    { title: t.nav.designSystem, href: "/design-system", icon: Sparkles, category: t.command.modulesSection },
   ];
 
   const filteredModules = modules.filter((m) =>
