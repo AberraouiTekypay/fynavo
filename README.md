@@ -47,7 +47,7 @@ Couche opérationnelle locale sous l'entité juridique pour suivre la rentabilit
 
 | Module | Route | Description & Capacités |
 | :--- | :--- | :--- |
-| **Cockpit Exécutif** | [`/group`](/group) | KPIs consolidés (CA, EBITDA, Cash, Dette nette, BFR), tableau de bord comparatif des filiales avec alertes de santé. |
+| **Cockpit Exécutif** | [`/group`](/group) | KPIs consolidés (CA, EBITDA, Cash, Dette nette, BFR), mini sparklines SVG, tableau de bord comparatif des filiales avec alertes de santé. |
 | **Structure du Groupe** | [`/group/structure`](/group/structure) | Arbre visuel interactif, filtres par type/pays/statut, création d'entités, détention % et méthode de consolidation. |
 | **Benchmarking & Santé** | [`/group/performance`](/group/performance) | Comparateur multidimensionnel et score de santé explicable sur 6 piliers (Rentabilité, Cash, BFR, Solvabilité, Budget, Qualité). |
 | **Trésorerie & Mobilité** | [`/group/cash`](/group/cash) | Séparation stricte entre **Trésorerie Totale** et **Liquidité Réellement Mobilisable** (exclusion des minimums opérationnels et des fonds cantonnés/SPV). |
@@ -60,6 +60,22 @@ Couche opérationnelle locale sous l'entité juridique pour suivre la rentabilit
 | **Allocations & Management Fees** | [`/group/allocations`](/group/allocations) | Règles de refacturation du siège (clé CA, effectifs, fixe) et journal des redevances d'animation. |
 | **Data Quality & Audit** | [`/group/health`](/group/health) | Score de fraîcheur des données, détection des périodes manquantes, journal d'audit des modifications et anomalies de consolidation. |
 | **Rapports de Gestion** | [`/group/reports`](/group/reports) | Dossier financier mensuel complet en 13 sections, prêt à l'impression et à l'exportation. |
+
+---
+
+## 🌐 Expérience Utilisateur & Internationalisation (i18n)
+
+- **Moteur Bilingue Intégré (EN / FR)** :
+  - Support natif et complet de l'Anglais et du Français sur l'ensemble des 13 modules de pilotage et la page d'accueil.
+  - Commutateur de langue instantané dans le header et le hero avec mémorisation dans `localStorage`.
+  - Formatage monétaire, numérique et de pourcentages localisé (gestion native des devises MAD, EUR, USD, GBP, XOF).
+- **Command Palette Exécutive (`⌘K` / `Ctrl+K`)** :
+  - Recherche globale et accès instantané à toutes les entités, filiales, actifs et modules analytiques.
+  - Raccourcis directs pour basculer de langue, changer la devise de consolidation ou naviguer dans les alertes.
+- **Design System & Data Visualisation Haute Précision** :
+  - Mini sparklines vectorielles intégrées dans les `KPICard` avec code couleur directionnel et alertes de seuil.
+  - Typographie financière avec chiffres tabulaires (`tabular-nums`) pour un alignement comptable sans décalage.
+  - Effets visuels modernes : surfaces en verre dépoli (*glassmorphism*), bordures haute définition et reflets subtils.
 
 ---
 
@@ -82,8 +98,8 @@ Le jeu de données intégré illustre un cas d'usage multi-filiales réaliste :
 
 ## 🛠️ Stack Technique
 
-- **Framework** : [Next.js 15 (App Router)](https://nextjs.org/)
-- **Langage** : TypeScript 5.8
+- **Framework** : [Next.js 15.1.12 (App Router)](https://nextjs.org/)
+- **Langage** : TypeScript 5.9
 - **Styles** : Tailwind CSS v3.4 + Radix UI Primitives + Lucide Icons
 - **Base de données** : Supabase PostgreSQL avec Row Level Security (RLS)
 - **Migrations SQL** :

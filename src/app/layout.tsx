@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 };
 
 import { GroupProvider } from "@/lib/group/GroupContext";
+import { LanguageProvider } from "@/lib/i18n/LanguageContext";
 
 export default function RootLayout({
   children,
@@ -25,9 +26,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={inter.variable}>
+    <html lang="en" className={inter.variable}>
       <body className="min-h-screen font-sans bg-[#F8FAFC] text-[#0F172A] antialiased selection:bg-blue-100 selection:text-blue-900">
-        <GroupProvider>{children}</GroupProvider>
+        <LanguageProvider>
+          <GroupProvider>{children}</GroupProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

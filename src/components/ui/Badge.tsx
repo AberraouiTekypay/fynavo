@@ -17,6 +17,7 @@ export const badgeVariants = cva(
         danger: "bg-rose-50 text-rose-700 border border-rose-200/60",
         rose: "bg-rose-50 text-rose-700 border border-rose-200/60",
         navy: "bg-[#0F172A] text-white border border-slate-900",
+        purple: "bg-purple-50 text-purple-700 border border-purple-200/60",
         outline: "border border-slate-200 text-slate-600 bg-white",
       },
       size: {
@@ -57,6 +58,7 @@ export function Badge({
     danger: "bg-rose-500",
     rose: "bg-rose-500",
     navy: "bg-white",
+    purple: "bg-purple-600",
     outline: "bg-slate-400",
   }[variant || "neutral"];
 

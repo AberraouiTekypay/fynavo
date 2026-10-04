@@ -15,6 +15,7 @@ import {
   TableCell,
 } from "@/components/ui/Table";
 import { useGroup } from "@/lib/group/GroupContext";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 import {
   DEMO_COST_ALLOCATIONS,
   DEMO_MANAGEMENT_FEE_RULES,
@@ -28,13 +29,10 @@ import {
 
 export default function GroupAllocationsPage() {
   const { entities, consolidationCurrency } = useGroup();
+  const { t, locale, formatMoney } = useLanguage();
 
   const [allocations] = React.useState(DEMO_COST_ALLOCATIONS);
   const [feeRules] = React.useState(DEMO_MANAGEMENT_FEE_RULES);
-
-  const formatMoney = (val: number) => {
-    return new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 0 }).format(val);
-  };
 
   const getEntityName = (id: string) => {
     return entities.find((e) => e.id === id)?.name || id;
@@ -42,95 +40,119 @@ export default function GroupAllocationsPage() {
 
   return (
     <AppShell
-      title="Allocations de Coûts Centraux & Management Fees"
-      subtitle={`Règles de répartition des frais de siège et conventions d'honoraires de gestion • Devise : ${consolidationCurrency}`}
+      title={t.allocations.title}
+      subtitle={`${t.allocations.subtitle}${consolidationCurrency}`}
     >
       {/* Top Advisory Banner */}
-      <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-subtle flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div className="flex items-start gap-3">
-          <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-700 flex items-center justify-center shrink-0">
-            <Split className="w-5 h-5" />
+      <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-subtle flex flex-col sm:flex-row sm:items-center justify-between gap-4 card-accent-top">
+        <div className="flex items-start gap-3.5">
+          <div className="w-11 h-11 rounded-xl bg-indigo-50 text-indigo-700 flex items-center justify-center shrink-0 border border-indigo-100 shadow-2xs">
+            <Split className="w-5 h-5 text-indigo-600" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="text-sm font-bold text-slate-900">
-                Couche de Gestion Extra-Comptable Auditable
+              <h2 className="text-sm font-extrabold text-slate-900 tracking-tight">
+                {t.allocations.bannerTitle}
               </h2>
-              <Badge variant="blue" size="sm">Règles Actives</Badge>
+              <Badge variant="blue" size="sm" dot>
+                {locale === "en" ? "OECD Compliant" : "Règles Actives"}
+              </Badge>
             </div>
             <p className="text-xs text-slate-500 mt-1 max-w-3xl leading-relaxed">
-              Les allocations de charges de siège constituent une couche analytique de gestion : les écritures comptables d&apos;origine des entités restent strictement intactes. Les règles sont auditables et conformes aux préconisations fiscales sur les prix de transfert.
+              {t.allocations.bannerDesc}
             </p>
           </div>
         </div>
 
-        <Button variant="primary" size="sm" leftIcon={<Plus className="w-3.5 h-3.5" />}>
-          Nouvelle règle d&apos;allocation
+        <Button
+          variant="primary"
+          size="sm"
+          className="bg-indigo-600 hover:bg-indigo-700 shadow-sm shadow-indigo-500/20 shrink-0 font-semibold"
+          leftIcon={<Plus className="w-3.5 h-3.5" />}
+        >
+          {t.allocations.newRuleBtn}
         </Button>
       </div>
 
       {/* Top 3 Metric Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <KPICard
-          title="Pool de Frais Centraux Réparti"
-          value="890 000 MAD / an"
-          badge="Direction & IT"
+          title={t.allocations.kpiCentralPool}
+          value={`890 000 ${consolidationCurrency} / ${locale === "en" ? "yr" : "an"}`}
+          badge={locale === "en" ? "HQ & IT" : "Direction & IT"}
           badgeVariant="blue"
-          description="Charges de holding mutualisées"
+          description={t.allocations.kpiCentralPoolDesc}
           icon={<Split className="w-4 h-4 text-indigo-600" />}
+          sparklineData={[700, 750, 800, 820, 870, 890]}
         />
 
         <KPICard
-          title="Management Fees Facturés"
-          value="865 500 MAD / an"
-          badge="100% Conventionné"
+          title={t.allocations.kpiFeesBilled}
+          value={`865 500 ${consolidationCurrency} / ${locale === "en" ? "yr" : "an"}`}
+          badge={locale === "en" ? "100% Contracted" : "100% Conventionné"}
           badgeVariant="green"
-          description="Honoraires d'animation groupe"
+          description={t.allocations.kpiFeesBilledDesc}
           icon={<FileText className="w-4 h-4 text-emerald-600" />}
+          sparklineData={[600, 650, 720, 800, 840, 865]}
         />
 
         <KPICard
-          title="Management Fees Recouvrés"
-          value="745 500 MAD"
-          badge="86.1% encaissé"
+          title={t.allocations.kpiFeesCollected}
+          value={`745 500 ${consolidationCurrency}`}
+          badge="86.1% Collected"
           badgeVariant="warning"
-          description="120K MAD en attente sur Beta"
+          description={t.allocations.kpiFeesCollectedDesc}
           icon={<Coins className="w-4 h-4 text-amber-600" />}
+          sparklineData={[500, 560, 610, 680, 710, 745]}
         />
       </div>
 
       {/* Shared Costs Allocation Table */}
       <Card
-        title="Règles d'Allocation des Coûts Partagés (Cost Pools)"
-        subtitle="Répartition des dépenses de siège selon des clés objectives (Chiffre d'affaires, effectifs, quote-part fixe)"
+        title={t.allocations.costPoolsTitle}
+        subtitle={t.allocations.costPoolsSubtitle}
       >
         <div className="space-y-4">
           {allocations.map((rule) => (
-            <div key={rule.id} className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 space-y-3">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-2">
+            <div
+              key={rule.id}
+              className="p-4 rounded-xl border border-slate-200 bg-slate-50/60 space-y-3.5 hover:bg-slate-50 transition-colors"
+            >
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-2.5">
                 <div>
-                  <span className="font-bold text-slate-900 text-sm block">{rule.costPoolName}</span>
-                  <span className="text-[11px] text-slate-400">
-                    Source : {getEntityName(rule.sourceEntityId)} • Méthode : Clé {rule.method.replace("_", " ")}
+                  <span className="font-extrabold text-slate-900 text-sm block">
+                    {rule.costPoolName}
+                  </span>
+                  <span className="text-[11px] text-slate-400 font-medium">
+                    {locale === "en" ? "Source" : "Source"} : {getEntityName(rule.sourceEntityId)} • {locale === "en" ? "Driver Key" : "Méthode"} : {rule.method.replace("_", " ")}
                   </span>
                 </div>
-                <div className="text-right">
-                  <span className="font-mono font-bold text-slate-900 text-sm">
-                    {formatMoney(rule.annualPoolAmount)} MAD / an
+                <div className="flex items-center gap-2">
+                  <span className="font-mono font-black text-slate-900 text-sm font-tabular">
+                    {formatMoney(rule.annualPoolAmount)} {consolidationCurrency} / {locale === "en" ? "yr" : "an"}
                   </span>
-                  <Badge variant="green" size="sm" className="ml-2">Active</Badge>
+                  <Badge variant="green" size="sm" dot>
+                    {locale === "en" ? "Active" : "Active"}
+                  </Badge>
                 </div>
               </div>
 
               {/* Split Breakdown Table */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {rule.splits.map((s) => (
-                  <div key={s.entityId} className="p-3 rounded-lg bg-white border border-slate-200 text-xs">
-                    <span className="font-bold text-slate-800 block">{getEntityName(s.entityId)}</span>
-                    <div className="mt-1 flex items-baseline justify-between">
-                      <span className="font-mono font-bold text-blue-600">{s.percentage}%</span>
-                      <span className="font-mono font-bold text-slate-900">
-                        {formatMoney(s.allocatedAmount)} MAD
+                  <div
+                    key={s.entityId}
+                    className="p-3.5 rounded-xl bg-white border border-slate-200 text-xs shadow-2xs hover:border-blue-200 transition-colors"
+                  >
+                    <span className="font-extrabold text-slate-800 block text-xs">
+                      {getEntityName(s.entityId)}
+                    </span>
+                    <div className="mt-2 flex items-baseline justify-between">
+                      <span className="font-mono font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full text-[11px]">
+                        {s.percentage}%
+                      </span>
+                      <span className="font-mono font-black text-slate-900 font-tabular">
+                        {formatMoney(s.allocatedAmount)} {consolidationCurrency}
                       </span>
                     </div>
                   </div>
@@ -143,56 +165,56 @@ export default function GroupAllocationsPage() {
 
       {/* Management Fees Table */}
       <Card
-        title="Conventions de Management Fees Intra-Groupe"
-        subtitle="Rémunération de la société mère pour l'animation managériale et la stratégie des filiales"
+        title={t.allocations.managementFeesTitle}
+        subtitle={t.allocations.managementFeesSubtitle}
       >
         <div className="overflow-x-auto">
           <Table>
             <TableHeader>
-              <TableRow>
-                <TableHead>Filiale Redevable</TableHead>
-                <TableHead>Base de Calcul</TableHead>
-                <TableHead align="center">Taux / Formule</TableHead>
-                <TableHead align="right">Montant Facturé Annuel</TableHead>
-                <TableHead align="right">Montant Encaissé</TableHead>
-                <TableHead align="right">Reste Dû</TableHead>
-                <TableHead align="center">Statut</TableHead>
+              <TableRow className="bg-slate-50/80">
+                <TableHead>{t.allocations.colSubsidiary}</TableHead>
+                <TableHead>{t.allocations.colBasis}</TableHead>
+                <TableHead align="center">{t.allocations.colRateFormula}</TableHead>
+                <TableHead align="right">{t.allocations.colBilled}</TableHead>
+                <TableHead align="right">{t.allocations.colCollected}</TableHead>
+                <TableHead align="right">{t.allocations.colOutstanding}</TableHead>
+                <TableHead align="center">{t.allocations.colStatus}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {feeRules.map((rule) => (
-                <TableRow key={rule.id}>
-                  <TableCell className="font-bold text-slate-900">
+                <TableRow key={rule.id} className="hover:bg-slate-50/70 transition-colors">
+                  <TableCell className="font-extrabold text-slate-900">
                     {getEntityName(rule.subsidiaryEntityId)}
                   </TableCell>
 
-                  <TableCell className="capitalize text-slate-700">
+                  <TableCell className="capitalize text-slate-700 font-medium text-xs">
                     {rule.calculationBasis.replace("_", " ")}
                   </TableCell>
 
-                  <TableCell align="center" className="font-mono font-semibold text-blue-600">
+                  <TableCell align="center" className="font-mono font-bold text-blue-600 text-xs">
                     {rule.calculationBasis === "pct_revenue" || rule.calculationBasis === "pct_ebitda"
                       ? `${rule.rateOrAmount}%`
-                      : `${formatMoney(rule.rateOrAmount)} MAD / mois`}
+                      : `${formatMoney(rule.rateOrAmount)} ${consolidationCurrency} / mo`}
                   </TableCell>
 
-                  <TableCell align="right" className="font-mono font-semibold text-slate-900">
-                    {formatMoney(rule.annualBilledMAD)} MAD
+                  <TableCell align="right" className="font-mono font-bold text-slate-900 font-tabular">
+                    {formatMoney(rule.annualBilledMAD)} {consolidationCurrency}
                   </TableCell>
 
-                  <TableCell align="right" className="font-mono font-bold text-emerald-700">
-                    {formatMoney(rule.annualCollectedMAD)} MAD
+                  <TableCell align="right" className="font-mono font-extrabold text-emerald-700 font-tabular">
+                    {formatMoney(rule.annualCollectedMAD)} {consolidationCurrency}
                   </TableCell>
 
-                  <TableCell align="right" className="font-mono font-bold">
+                  <TableCell align="right" className="font-mono font-black font-tabular">
                     <span className={rule.outstandingMAD > 0 ? "text-rose-600" : "text-slate-400"}>
-                      {formatMoney(rule.outstandingMAD)} MAD
+                      {formatMoney(rule.outstandingMAD)} {consolidationCurrency}
                     </span>
                   </TableCell>
 
                   <TableCell align="center">
                     <Badge variant={rule.outstandingMAD > 0 ? "amber" : "green"} size="sm" dot>
-                      {rule.outstandingMAD > 0 ? "Retard de paiement" : "À jour"}
+                      {rule.outstandingMAD > 0 ? t.allocations.statusOverdue : t.allocations.statusUpToDate}
                     </Badge>
                   </TableCell>
                 </TableRow>
